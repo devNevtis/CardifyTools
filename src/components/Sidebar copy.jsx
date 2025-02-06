@@ -62,7 +62,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-full md:w-1/4 bg-gray-50 shadow-lg p-4 overflow-y-auto">
+    <aside className="w-1/4 bg-gray-50 shadow-lg p-4 overflow-y-auto">
       <h1 className="text-2xl font-bold text-gray-800 mb-4">Cardify Tools</h1>
       
       {/* Sección de Subida de Imágenes */}

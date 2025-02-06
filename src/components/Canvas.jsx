@@ -124,7 +124,7 @@ const textContainerStyle = (() => {
   return (
     <div
       id="cardify-canvas"
-      className="w-[800px] h-[642px] bg-white shadow-md rounded-xl relative flex flex-col justify-center items-center"
+      className="w-[800px] h-[610px] bg-white shadow-md rounded-xl relative flex flex-col justify-center items-center"
     >
       {/* Imagen de fondo */}
       {backgroundImage && (
