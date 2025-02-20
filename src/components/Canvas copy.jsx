@@ -11,9 +11,7 @@ export default function Canvas() {
   const textSettings = useStore((state) => state.textSettings);
   const profileDiameter = useStore((state) => state.profileDiameter);
   const profileImageOffset = useStore((state) => state.profileImageOffset);
-  const setProfileImageOffset = useStore(
-    (state) => state.setProfileImageOffset
-  );
+  const setProfileImageOffset = useStore((state) => state.setProfileImageOffset);
 
   // Estado local para almacenar las dimensiones naturales de la imagen (al cargarse)
   const [profileImageDims, setProfileImageDims] = useState(null);
@@ -44,11 +42,9 @@ export default function Canvas() {
       if (!isDragging || !profileImageDims) return;
       const deltaY = e.clientY - dragStartY.current;
       let newOffset = dragStartOffset.current + deltaY;
-
+      
       // Calcular la altura escalada de la imagen: la imagen se ajusta al ancho del contenedor
-      const scaledHeight =
-        profileDiameter *
-        (profileImageDims.naturalHeight / profileImageDims.naturalWidth);
+      const scaledHeight = profileDiameter * (profileImageDims.naturalHeight / profileImageDims.naturalWidth);
 
       // Limitar el offset para que la imagen siempre cubra el contenedor:
       // - El offset máximo es 0 (imagen alineada arriba)
@@ -79,31 +75,32 @@ export default function Canvas() {
     };
   }, [isDragging, profileImageDims, profileDiameter, setProfileImageOffset]);
 
-  const textContainerStyle = (() => {
-    const baseStyle = {
-      position: "absolute",
-      top: "2rem", // Aumenta el margen superior
-      fontSize: textSettings.fontSize,
-      color: textSettings.color,
-      fontWeight: textSettings.fontWeight,
-      textDecoration: textSettings.textDecoration,
-      fontFamily: textSettings.fontFamily,
-      lineHeight: "1.2",
-      zIndex: 2, // Para que esté por encima de la imagen de fondo
-      // Propiedades del overlay que se ajusta al texto:
-      backgroundColor: "rgba(0, 0, 0, 0.2)",
-      padding: "0.5rem",
-      borderRadius: "0.25rem",
-    };
 
-    if (textSettings.alignment === "left") {
-      return {
-        ...baseStyle,
-        textAlign: "left",
-        width: "60%",
-        paddingLeft: "1rem",
-        left: 0,
-      };
+const textContainerStyle = (() => {
+  const baseStyle = {
+    position: "absolute",
+    top: "2rem", // Aumenta el margen superior
+    fontSize: textSettings.fontSize,
+    color: textSettings.color,
+    fontWeight: textSettings.fontWeight,
+    textDecoration: textSettings.textDecoration,
+    fontFamily: textSettings.fontFamily,
+    lineHeight: "1.2",
+    zIndex: 2, // Para que esté por encima de la imagen de fondo
+    // Propiedades del overlay que se ajusta al texto:
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    padding: "0.5rem",
+    borderRadius: "0.25rem",
+  };
+
+  if (textSettings.alignment === "left") {
+    return {
+      ...baseStyle,
+      textAlign: "left",
+      width: "60%",
+      paddingLeft: "1rem",
+      left: 0,
+    };
     } else if (textSettings.alignment === "right") {
       return {
         ...baseStyle,
@@ -127,8 +124,7 @@ export default function Canvas() {
   return (
     <div
       id="cardify-canvas"
-      className="w-[800px] h-[610px] shadow-md rounded-xl relative flex flex-col justify-center items-center"
-      style={{ background: "transparent" }}
+      className="w-[800px] h-[610px] bg-white shadow-md rounded-xl relative flex flex-col justify-center items-center"
     >
       {/* Imagen de fondo */}
       {backgroundImage && (
@@ -141,7 +137,11 @@ export default function Canvas() {
       )}
 
       {/* Texto personalizado */}
-      {text && <div style={textContainerStyle}>{text}</div>}
+      { text && (
+        <div style={textContainerStyle}>
+          {text}
+        </div>
+      )}
 
       {/* Contenedor circular para la imagen de perfil con arrastre vertical */}
       {profileImage && (

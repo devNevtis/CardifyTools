@@ -23,11 +23,11 @@ export default function Sidebar() {
       alert("Canvas not found!");
       return;
     }
-    const canvas = await html2canvas(canvasElement, { backgroundColor: null });
+    const canvas = await html2canvas(canvasElement);
     const dataURL = canvas.toDataURL("image/png");
     const link = document.createElement("a");
     link.href = dataURL;
-    link.download = "cardify.jpg";
+    link.download = "cardify.png";
     link.click();
   };
 
@@ -46,16 +46,11 @@ export default function Sidebar() {
   };
 
   const toggleBold = () => {
-    setTextSettings({
-      fontWeight: textSettings.fontWeight === "bold" ? "normal" : "bold",
-    });
+    setTextSettings({ fontWeight: textSettings.fontWeight === "bold" ? "normal" : "bold" });
   };
 
   const toggleUnderline = () => {
-    setTextSettings({
-      textDecoration:
-        textSettings.textDecoration === "underline" ? "none" : "underline",
-    });
+    setTextSettings({ textDecoration: textSettings.textDecoration === "underline" ? "none" : "underline" });
   };
 
   const handleTextColorChange = (e) => {
@@ -69,24 +64,16 @@ export default function Sidebar() {
   return (
     <aside className="w-full md:w-1/4 bg-gray-50 shadow-lg p-4 overflow-y-auto">
       <h1 className="text-2xl font-bold text-gray-800 mb-4">Cardify Tools</h1>
-
+      
       {/* Sección de Subida de Imágenes */}
       <div className="mb-4 space-y-4">
-        <ImageUploader
-          label="Upload Background Image"
-          onImageUpload={setBackgroundImage}
-        />
-        <ImageUploader
-          label="Upload Profile Image"
-          onImageUpload={setProfileImage}
-        />
+        <ImageUploader label="Upload Background Image" onImageUpload={setBackgroundImage} />
+        <ImageUploader label="Upload Profile Image" onImageUpload={setProfileImage} />
       </div>
-
+      
       {/* Sección de Tamaño de Imagen de Perfil */}
       <div className="mb-4">
-        <h2 className="text-sm font-semibold text-blue-900 mb-2">
-          Profile Image Size
-        </h2>
+        <h2 className="text-sm font-semibold text-blue-900 mb-2">Profile Image Size</h2>
         <div className="flex items-center space-x-3">
           <input
             type="range"
@@ -97,31 +84,25 @@ export default function Sidebar() {
             onChange={handleProfileDiameterChange}
             className="w-full"
           />
-          <span className="text-blue-700 font-medium text-sm">
-            {profileDiameter}px
-          </span>
+          <span className="text-blue-700 font-medium text-sm">{profileDiameter}px</span>
         </div>
       </div>
 
       {/* Sección de Personalización de Texto */}
       <div className="mb-4">
-        <h2 className="text-sm font-semibold text-blue-900 mb-2">
-          Customize Text
-        </h2>
+        <h2 className="text-sm font-semibold text-blue-900 mb-2">Customize Text</h2>
         <textarea
           rows="3"
           placeholder="Enter your text..."
           onChange={(e) => setText(e.target.value)}
           className="w-full border border-gray-300 rounded-md p-2 mb-2 text-gray-800"
         ></textarea>
-
+        
         <div className="space-y-4 border border-gray-300 p-2 rounded-md">
           {/* Fila: Font Size y Font Family */}
           <div className="flex flex-wrap gap-2 mb-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Font Size
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Font Size</label>
               <select
                 value={textSettings.fontSize}
                 onChange={handleFontSizeChange}
@@ -133,9 +114,7 @@ export default function Sidebar() {
               </select>
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Font Family
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Font Family</label>
               <select
                 value={textSettings.fontFamily}
                 onChange={handleFontFamilyChange}
@@ -160,14 +139,13 @@ export default function Sidebar() {
 
           {/* Sección de Text Format: Estilo, Color y Alineación en una sola fila */}
           <div className="flex items-center gap-2 mb-4">
+
             {/* Botones de Font Style: Bold y Underline */}
             <div className="flex items-center space-x-2">
               <button
                 onClick={toggleBold}
                 className={`w-8 h-8 flex items-center justify-center rounded-md border ${
-                  textSettings.fontWeight === "bold"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-800"
+                  textSettings.fontWeight === "bold" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
                 }`}
               >
                 <span className="font-bold">B</span>
@@ -175,9 +153,7 @@ export default function Sidebar() {
               <button
                 onClick={toggleUnderline}
                 className={`w-8 h-8 flex items-center justify-center rounded-md border ${
-                  textSettings.textDecoration === "underline"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-800"
+                  textSettings.textDecoration === "underline" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
                 }`}
               >
                 <span className="underline">U</span>
@@ -199,9 +175,7 @@ export default function Sidebar() {
               <button
                 onClick={() => setAlignment("left")}
                 className={`w-8 h-8 flex items-center justify-center rounded-md border ${
-                  textSettings.alignment === "left"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-800"
+                  textSettings.alignment === "left" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
                 }`}
               >
                 <FaAlignLeft size={20} />
@@ -209,9 +183,7 @@ export default function Sidebar() {
               <button
                 onClick={() => setAlignment("center")}
                 className={`w-8 h-8 flex items-center justify-center rounded-md border ${
-                  textSettings.alignment === "center"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-800"
+                  textSettings.alignment === "center" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
                 }`}
               >
                 <FaAlignCenter size={20} />
@@ -219,9 +191,7 @@ export default function Sidebar() {
               <button
                 onClick={() => setAlignment("right")}
                 className={`w-8 h-8 flex items-center justify-center rounded-md border ${
-                  textSettings.alignment === "right"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-800"
+                  textSettings.alignment === "right" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
                 }`}
               >
                 <FaAlignRight size={20} />
@@ -229,6 +199,7 @@ export default function Sidebar() {
             </div>
           </div>
         </div>
+
       </div>
 
       {/* Botón de Descarga */}
